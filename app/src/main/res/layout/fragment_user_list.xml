@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootRecycle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BEEBF1"
+    android:gravity="center_horizontal|center_vertical">
+
+    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:context=".GameListFragment"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_user_list" />
+
+    <TextView
+        android:id="@+id/turn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerView"
+        android:layout_marginTop="50dp"
+        android:text="Turn:  "
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
