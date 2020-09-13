@@ -10,7 +10,7 @@ public class GameRepository {
 
     private static GameRepository sInstance;
     List<Game> mGame = new ArrayList<>();
-    int count=3*3;
+
 
 
     private GameRepository() {
@@ -29,7 +29,7 @@ public class GameRepository {
         }
     }
 
-    public  List<Game> getmGame() {
+    public  List<Game> getGame() {
         return mGame;
     }
 

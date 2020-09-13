@@ -12,12 +12,12 @@ public class GameListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-
-        if (fragment == null)
-          getSupportFragmentManager().beginTransaction()
-                  .add(R.id.fragment_container, new GameListFragment())
-                 .commit();
+//        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+//
+//        if (fragment == null)
+//          getSupportFragmentManager().beginTransaction()
+//                  .add(R.id.fragment_container, new GameListFragment())
+//                 .commit();
 
 
     }

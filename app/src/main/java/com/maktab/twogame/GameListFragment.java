@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,7 @@ public class GameListFragment extends Fragment {
     private TextView txt_turn;
     private int index = 0;
     private boolean endGame = false;
+    private Button btn_rst;
 
     RecyclerView mRecyclerView;
 
@@ -38,7 +40,9 @@ public class GameListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -47,17 +51,24 @@ public class GameListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         findViews(view);
         initViews();
+        btn_rst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initViews();
+            }
+        });
         return view;
     }
 
     private void findViews(View view) {
         mRecyclerView = view.findViewById(R.id.recyclerView);
         txt_turn=view.findViewById(R.id.turn);
+        btn_rst=view.findViewById(R.id.btn_Rst1);
     }
 
     private void initViews() {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
-        List<Game> games = GameRepository.getInstance().getmGame();
+        List<Game> games = GameRepository.getInstance().getGame();
         mRecyclerView.setAdapter(new GameAdapter(games, getContext()));
     }
 
@@ -95,36 +106,58 @@ public class GameListFragment extends Fragment {
         }
 
         private void Move(int pos) {
+            int result;
             int row = (pos / grid_size);
             int col = (pos % grid_size);
-            if (my_board[row][col] == ' ') {
-                my_board[row][col] = turn;
-                if (turn == 'X') {
-                    mContain.setBackgroundColor(Color.BLUE);
-                    turn = 'O';
-                } else if (turn == 'O') {
-                    mContain.setBackgroundColor(Color.RED);
-                    turn = 'X';
-                }
+            result=Empty(row,col);
+            txt_turn.setText("Result is"+result+" row is "+row+"col is "+col);
+           if (result==-1){
+                txt_turn.setText("Select from Lower Colunm");
+            }
+            else {
+               if (my_board[row][col] == ' ') {
+                   my_board[row][col] = turn;
+                   if (turn == 'X') {
+                       mContain.setBackgroundColor(Color.BLUE);
+                       turn = 'O';
+                   } else if (turn == 'O') {
+                       mContain.setBackgroundColor(Color.RED);
+                       turn = 'X';
+                   }
+               }
+
+
+               if (gameStatus() == 0) {
+                   Log.d("leila", "Turn: Player " + turn);
+                   txt_turn.setText("Turn: Player " + turn);
+               } else if (gameStatus() == -1) {
+                   Log.d("leila", "This is a Draw match Stop Game");
+                   txt_turn.setText("This is a Draw match");
+                   stopMatch();
+               } else {
+                   Log.d("leila", turn + "  Loses! Stop Game");
+                   txt_turn.setText(turn + " Loses!");
+                   stopMatch();
+               }
+
+           }
+
+        }
+
+        private int Empty(int row,int col){
+
+            for(int i=4;i>row;i--){
+                if (my_board[i][col]== ' ')
+                   // txt_turn.setText("Result is -1");
+                    return -1;
             }
 
-            if (gameStatus() == 0) {
-                Log.d("leila", "Turn: Player " + turn);
-                txt_turn.setText("Turn: Player " + turn);
-            } else if (gameStatus() == -1) {
-                Log.d("leila", "This is a Draw match Stop Game");
-                    txt_turn.setText("This is a Draw match");
-                stopMatch();
-            } else {
-                Log.d("leila", turn + "  Loses! Stop Game");
-                   txt_turn.setText(turn+" Loses!");
-                stopMatch();
-            }
+            //txt_turn.setText("Result is 1");
+            return 1;
 
 
         }
 
-        
 
 
 

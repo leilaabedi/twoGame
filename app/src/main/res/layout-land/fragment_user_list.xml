@@ -6,16 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#BEEBF1"
-    android:gravity="center|top">
+    android:gravity="top">
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="8dp"
         android:text="Game: 4 in a Row "
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -24,7 +23,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@id/textView"
         tools:context=".GameListFragment"
         tools:itemCount="5"
         tools:listitem="@layout/item_user_list" />
@@ -33,9 +34,10 @@
         android:id="@+id/turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recyclerView"
+        android:layout_marginLeft="20dp"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@id/recyclerView"
         android:text="Turn:  "
         android:textStyle="bold" />
 
@@ -43,8 +45,9 @@
         android:id="@+id/btn_Rst1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@id/turn"
-        android:layout_marginTop="20dp"
         android:text="Reset" />
 
 

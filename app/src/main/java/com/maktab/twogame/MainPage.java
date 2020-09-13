@@ -10,21 +10,36 @@ import android.widget.Button;
 
 public class MainPage extends AppCompatActivity {
 
+    private static boolean flag = false;
+     Fragment mMyFragment;
+;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         final FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+         //    mMyFragment = getSupportFragmentManager().getFragment(savedInstanceState, "myFragmentName");
+
+        }
 
         //create an add fragment transaction for CrimeDetailFragment
 
         final TicDetailFragment TicDetailFragment = new TicDetailFragment();
         final GameListFragment gameListFragment = new GameListFragment();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragment_container, TicDetailFragment)
-                .commit();
+        final Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        FragmentManager fm;
+
+//      getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.fragment_container, TicDetailFragment)
+//                .commit();
 
         Button button = findViewById(R.id.btn_tic);
 
@@ -32,14 +47,17 @@ public class MainPage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .remove(gameListFragment)
-                        .commit();
+
+//                if (flag == true) {
+//                    getSupportFragmentManager()
+//                            .beginTransaction()
+//                            .remove(gameListFragment)
+//                            .commit();
+//                }
 
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.fragment_container, TicDetailFragment)
+                        .replace(R.id.fragment_container, TicDetailFragment)
                         .commit();
             }
         });
@@ -49,14 +67,18 @@ public class MainPage extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+//                getSupportFragmentManager().beginTransaction()
+//                        .add(R.id.fragment_container, gameListFragment)
+//                        .commit();
+
+
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .remove(TicDetailFragment)
+                        .replace(R.id.fragment_container,gameListFragment)
                         .commit();
 
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.fragment_container, gameListFragment)
-                        .commit();
+                flag = true;
 
 
             }
@@ -64,4 +86,7 @@ public class MainPage extends AppCompatActivity {
 
 
     }
+
+
+
 }
